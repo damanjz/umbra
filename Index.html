@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umbra — Shadow of Style</title>
+    <meta name="description" content="Umbra — premium athletic gear forged in the shadows.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header__top">
+            <a href="#">Help</a><a href="#">Sign Up</a><a href="#">Log In</a>
+        </div>
+        <div class="header__bar">
+            <a href="Index.html" class="header__logo">UMBRA</a>
+            <ul class="nav">
+                <li class="nav__item">
+                    <a href="#">New & Featured</a>
+                    <div class="mega">
+                        <div class="mega__col">
+                            <div class="mega__heading">Featured</div><a href="#" class="mega__link">New Arrivals</a><a
+                                href="#" class="mega__link">Bestsellers</a><a href="#" class="mega__link">Top Picks
+                                Under ₹4999</a>
+                        </div>
+                        <div class="mega__col">
+                            <div class="mega__heading">Trending</div><a href="#" class="mega__link">Retro Running</a><a
+                                href="#" class="mega__link">Shadow Collection</a><a href="#" class="mega__link">Domain
+                                3</a>
+                        </div>
+                        <div class="mega__col">
+                            <div class="mega__heading">Sport</div><a href="#" class="mega__link">Cricket</a><a href="#"
+                                class="mega__link">Running</a><a href="#" class="mega__link">Gym & Training</a><a
+                                href="#" class="mega__link">Football</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav__item"><a href="men.html">Men</a></li>
+                <li class="nav__item"><a href="women.html">Women</a></li>
+                <li class="nav__item"><a href="kids.html">Kids</a></li>
+            </ul>
+            <div class="actions">
+                <div class="actions__search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input type="text" placeholder="Search">
+                </div>
+                <a href="#" class="actions__icon" aria-label="Favorites"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg></a>
+                <button class="actions__icon cart-toggle" aria-label="Cart" id="cartToggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+            </div>
+        </div>
+        <div class="header__promo">Free shipping on orders over ₹4999 — <a href="#">Shop now</a></div>
+    </header>
+
+    <!-- CART SIDEBAR -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-sidebar__header">
+            <h3>Your Cart</h3><button class="cart-sidebar__close" id="cartClose">&times;</button>
+        </div>
+        <div class="cart-sidebar__items" id="cartItems">
+            <p class="cart-sidebar__empty">Your cart is empty.</p>
+        </div>
+        <div class="cart-sidebar__footer" id="cartFooter" style="display:none">
+            <div class="cart-sidebar__total">Total: <strong id="cartTotal">₹0</strong></div>
+            <a href="checkout.html" class="btn btn--accent btn--full">Checkout</a>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main>
+
+        <!-- =====================================================
+             SCROLL-DRIVEN CINEMATIC HERO
+             ===================================================== -->
+        <section class="scroll-hero" id="scrollHero">
+            <!-- Scroll container — 300vh tall to give scroll room -->
+            <div class="scroll-hero__sticky">
+                <!-- Background video-like layers that animate on scroll -->
+                <div class="scroll-hero__bg">
+                    <div class="scroll-hero__layer scroll-hero__layer--1"></div>
+                    <div class="scroll-hero__layer scroll-hero__layer--2"></div>
+                    <div class="scroll-hero__layer scroll-hero__layer--3"></div>
+                    <div class="scroll-hero__gradient"></div>
+                </div>
+
+                <!-- Animated big text -->
+                <div class="scroll-hero__content">
+                    <div class="scroll-hero__wordmark" id="heroWordmark">UMBRA</div>
+                    <div class="scroll-hero__reveal" id="heroReveal">
+                        <p class="scroll-hero__tagline">Born in the Shadow. Built to Dominate.</p>
+                        <div class="scroll-hero__cta">
+                            <a href="#products" class="btn btn--accent">Shop Collection</a>
+                            <a href="#mission" class="btn btn--ghost">Our Story</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scroll indicator -->
+                <div class="scroll-hero__indicator" id="scrollIndicator">
+                    <span>Scroll to explore</span>
+                    <div class="scroll-hero__arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             MISSION STATEMENT
+             ===================================================== -->
+        <section class="mission" id="mission">
+            <div class="container">
+                <div class="mission__grid">
+                    <div class="mission__label reveal-on-scroll">Our Purpose</div>
+                    <h2 class="mission__title reveal-on-scroll">We don't follow the light.<br><span>We own the
+                            dark.</span></h2>
+                    <p class="mission__text reveal-on-scroll">Umbra was founded in 2021 with one belief: the best
+                        athletes don't need the spotlight — they <em>are</em> the spotlight. We engineer premium
+                        performance gear for those who train harder, push further, and refuse to be outworked. Every
+                        stitch, every sole, every fiber is designed in the shadows and tested under pressure.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             STATS / SOCIAL PROOF
+             ===================================================== -->
+        <section class="stats">
+            <div class="container">
+                <div class="stats__grid">
+                    <div class="stat reveal-on-scroll">
+                        <div class="stat__number" data-target="2400000">0</div>
+                        <div class="stat__label">Athletes Worldwide</div>
+                    </div>
+                    <div class="stat reveal-on-scroll">
+                        <div class="stat__number" data-target="38">0</div>
+                        <div class="stat__label">Countries</div>
+                    </div>
+                    <div class="stat reveal-on-scroll">
+                        <div class="stat__number" data-target="150">0</div>
+                        <div class="stat__label">Product Lines</div>
+                    </div>
+                    <div class="stat reveal-on-scroll">
+                        <div class="stat__number" data-target="99">0</div>
+                        <div class="stat__label">Satisfaction Rate %</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             COMPANY VALUES
+             ===================================================== -->
+        <section class="values">
+            <div class="container">
+                <div class="section-header">
+                    <h2>What We Stand For</h2>
+                </div>
+                <div class="values__grid">
+                    <div class="value-card reveal-on-scroll">
+                        <div class="value-card__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                            </svg>
+                        </div>
+                        <h3>Performance First</h3>
+                        <p>Every product is engineered for peak athletic output. We test under extreme conditions so you
+                            never have to compromise.</p>
+                    </div>
+                    <div class="value-card reveal-on-scroll">
+                        <div class="value-card__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M2 12h20" />
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                            </svg>
+                        </div>
+                        <h3>Sustainable Impact</h3>
+                        <p>60% of our materials are recycled or organic. By 2028, we aim for 100% carbon-neutral
+                            production across all facilities.</p>
+                    </div>
+                    <div class="value-card reveal-on-scroll">
+                        <div class="value-card__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                        </div>
+                        <h3>Community Driven</h3>
+                        <p>From grassroots cricket academies in India to running clubs in Kenya — we invest in the
+                            athletes of tomorrow, at every level.</p>
+                    </div>
+                    <div class="value-card reveal-on-scroll">
+                        <div class="value-card__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            </svg>
+                        </div>
+                        <h3>Uncompromising Quality</h3>
+                        <p>Every product undergoes 200+ hours of durability testing. If it doesn't survive our lab, it
+                            never reaches your doorstep.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             PRODUCTS
+             ===================================================== -->
+        <section class="products" id="products">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Trending Now</h2><a href="#">View All →</a>
+                </div>
+                <div class="product-grid">
+                    <article class="product-card">
+                        <a href="products/shadow-runner-x.html" class="product-card__img"><img
+                                src="images/shoe_shadow_runner.png" alt="Umbra Shadow Runner X"></a>
+                        <div class="product-card__body">
+                            <span class="product-card__tag">New</span>
+                            <h3 class="product-card__name"><a href="products/shadow-runner-x.html">Umbra Shadow Runner
+                                    X</a></h3>
+                            <p class="product-card__price"><strong>₹8,995</strong></p>
+                            <button class="btn btn--add"
+                                onclick="addToCart('Umbra Shadow Runner X', 8995, 'images/shoe_shadow_runner.png')">Add
+                                to Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <a href="products/domain-3-cricket-spike.html" class="product-card__img"><img
+                                src="images/shoe_cricket_spike.png" alt="Domain 3 Cricket Spike"></a>
+                        <div class="product-card__body">
+                            <span class="product-card__tag">Bestseller</span>
+                            <h3 class="product-card__name"><a href="products/domain-3-cricket-spike.html">Domain 3
+                                    Cricket Spike</a></h3>
+                            <p class="product-card__price"><strong>₹12,495</strong></p>
+                            <button class="btn btn--add"
+                                onclick="addToCart('Domain 3 Cricket Spike', 12495, 'images/shoe_cricket_spike.png')">Add
+                                to Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <a href="products/nightfall-hoodie.html" class="product-card__img"><img
+                                src="images/hoodie_dark.png" alt="Nightfall Hoodie — Onyx"></a>
+                        <div class="product-card__body">
+                            <span class="product-card__tag">Trending</span>
+                            <h3 class="product-card__name"><a href="products/nightfall-hoodie.html">Nightfall Hoodie —
+                                    Onyx</a></h3>
+                            <p class="product-card__price"><strong>₹4,295</strong></p>
+                            <button class="btn btn--add"
+                                onclick="addToCart('Nightfall Hoodie — Onyx', 4295, 'images/hoodie_dark.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <a href="products/eclipse-training-shorts.html" class="product-card__img"><img
+                                src="images/training_shorts.png" alt="Eclipse Training Shorts"></a>
+                        <div class="product-card__body">
+                            <span class="product-card__tag">Limited</span>
+                            <h3 class="product-card__name"><a href="products/eclipse-training-shorts.html">Eclipse
+                                    Training Shorts</a></h3>
+                            <p class="product-card__price"><strong>₹2,795</strong></p>
+                            <button class="btn btn--add"
+                                onclick="addToCart('Eclipse Training Shorts', 2795, 'images/training_shorts.png')">Add
+                                to Cart</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             TESTIMONIALS
+             ===================================================== -->
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Athletes Trust Umbra</h2>
+                </div>
+                <div class="testimonials__grid">
+                    <blockquote class="testimonial reveal-on-scroll">
+                        <p>"The Shadow Runner changed my game. Lightweight, responsive, and they look insane on the
+                            pitch."</p>
+                        <footer>
+                            <strong>Rohit V.</strong>
+                            <span>Cricket, Mumbai</span>
+                        </footer>
+                    </blockquote>
+                    <blockquote class="testimonial reveal-on-scroll">
+                        <p>"I've trained in everything. Umbra's Nightfall hoodie is the only one that survives my
+                            routine and still looks fresh."</p>
+                        <footer>
+                            <strong>Priya K.</strong>
+                            <span>CrossFit, Delhi</span>
+                        </footer>
+                    </blockquote>
+                    <blockquote class="testimonial reveal-on-scroll">
+                        <p>"Finally a brand that understands athletes don't need flash — they need gear that works.
+                            Umbra delivers."</p>
+                        <footer>
+                            <strong>James T.</strong>
+                            <span>Running, London</span>
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             CATEGORIES
+             ===================================================== -->
+        <section class="categories" id="categories">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Shop by Category</h2>
+                </div>
+                <div class="cat-grid">
+                    <a href="men.html" class="cat-card cat-card--men">
+                        <div>
+                            <div class="cat-card__label">Men</div><span class="cat-card__cta">Shop now →</span>
+                        </div>
+                    </a>
+                    <a href="women.html" class="cat-card cat-card--women">
+                        <div>
+                            <div class="cat-card__label">Women</div><span class="cat-card__cta">Shop now →</span>
+                        </div>
+                    </a>
+                    <a href="kids.html" class="cat-card cat-card--kids">
+                        <div>
+                            <div class="cat-card__label">Kids</div><span class="cat-card__cta">Shop now →</span>
+                        </div>
+                    </a>
+                    <a href="#" class="cat-card cat-card--new">
+                        <div>
+                            <div class="cat-card__label">New & Featured</div><span class="cat-card__cta">Explore
+                                →</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             NEWSLETTER / CTA
+             ===================================================== -->
+        <section class="newsletter">
+            <div class="container">
+                <div class="newsletter__inner">
+                    <h2>Join the <span>Shadow Network</span></h2>
+                    <p>Get early access to drops, exclusive offers, and training content from pro athletes.</p>
+                    <form class="newsletter__form"
+                        onsubmit="event.preventDefault(); this.innerHTML='<p style=\'color:var(--accent);font-weight:700\'>✓ You\'re in. Welcome to the shadows.</p>';">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit" class="btn btn--accent">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer__grid">
+            <div class="footer__brand">
+                <h3>UMBRA</h3>
+                <p>Premium athletic gear forged in the shadows. Performance meets dark elegance.</p>
+            </div>
+            <nav class="footer__links">
+                <div class="footer__col">
+                    <h4>Products</h4><a href="#">Shoes</a><a href="#">Clothing</a><a href="#">Accessories</a><a
+                        href="#">New Arrivals</a>
+                </div>
+                <div class="footer__col">
+                    <h4>Company</h4><a href="#">About Us</a><a href="#">Careers</a><a href="#">Blog</a><a
+                        href="#">Contact</a>
+                </div>
+                <div class="footer__col">
+                    <h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie
+                        Policy</a>
+                </div>
+            </nav>
+        </div>
+        <div class="footer__bottom">&copy; 2026 Umbra Inc. All rights reserved.</div>
+    </footer>
+
+    <script src="cart.js"></script>
+    <script src="scroll-hero.js"></script>
+</body>
+
+</html>

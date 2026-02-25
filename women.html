@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women — Umbra</title>
+    <meta name="description" content="Shop Umbra Women's collection.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__top"><a href="#">Help</a><a href="#">Sign Up</a><a href="#">Log In</a></div>
+        <div class="header__bar">
+            <a href="Index.html" class="header__logo">UMBRA</a>
+            <ul class="nav">
+                <li class="nav__item"><a href="Index.html">New & Featured</a></li>
+                <li class="nav__item"><a href="men.html">Men</a></li>
+                <li class="nav__item nav__item--active"><a href="women.html">Women</a></li>
+                <li class="nav__item"><a href="kids.html">Kids</a></li>
+            </ul>
+            <div class="actions">
+                <div class="actions__search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg><input type="text" placeholder="Search"></div>
+                <a href="#" class="actions__icon" aria-label="Favorites"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg></a>
+                <button class="actions__icon cart-toggle" aria-label="Cart" id="cartToggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+            </div>
+        </div>
+        <div class="header__promo">Free shipping on orders over ₹4999 — <a href="#">Shop now</a></div>
+    </header>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-sidebar__header">
+            <h3>Your Cart</h3><button class="cart-sidebar__close" id="cartClose">&times;</button>
+        </div>
+        <div class="cart-sidebar__items" id="cartItems">
+            <p class="cart-sidebar__empty">Your cart is empty.</p>
+        </div>
+        <div class="cart-sidebar__footer" id="cartFooter" style="display:none">
+            <div class="cart-sidebar__total">Total: <strong id="cartTotal">₹0</strong></div>
+            <a href="checkout.html" class="btn btn--accent btn--full">Checkout</a>
+        </div>
+    </aside>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1>Women's Collection</h1>
+                <p>Designed for movement. Styled for statement.</p>
+            </div>
+        </section>
+        <section class="products">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Shoes</h2><a href="#">View All →</a>
+                </div>
+                <div class="product-grid">
+                    <article class="product-card">
+                        <div class="product-card__img"><img src="images/shoe_shadow_runner.png" alt="Luna Runner"></div>
+                        <div class="product-card__body"><span class="product-card__tag">New</span>
+                            <h3 class="product-card__name">Luna Runner — Lilac</h3>
+                            <p class="product-card__price"><strong>₹8,495</strong></p><button class="btn btn--add"
+                                onclick="addToCart('Luna Runner — Lilac',8495,'images/shoe_shadow_runner.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-card__img"><img src="images/shoe_cricket_spike.png" alt="Aura Training Max">
+                        </div>
+                        <div class="product-card__body"><span class="product-card__tag">Bestseller</span>
+                            <h3 class="product-card__name">Aura Training Max</h3>
+                            <p class="product-card__price"><strong>₹10,995</strong></p><button class="btn btn--add"
+                                onclick="addToCart('Aura Training Max',10995,'images/shoe_cricket_spike.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-card__img"><img src="images/shoe_shadow_runner.png" alt="Zenith Sandal">
+                        </div>
+                        <div class="product-card__body"><span class="product-card__tag">Trending</span>
+                            <h3 class="product-card__name">Zenith Sandal — Blush</h3>
+                            <p class="product-card__price"><strong>₹3,795</strong></p><button class="btn btn--add"
+                                onclick="addToCart('Zenith Sandal — Blush',3795,'images/shoe_shadow_runner.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-card__img"><img src="images/shoe_cricket_spike.png"
+                                alt="Eclipse Lifestyle Low"></div>
+                        <div class="product-card__body"><span class="product-card__tag">Limited</span>
+                            <h3 class="product-card__name">Eclipse Lifestyle Low</h3>
+                            <p class="product-card__price"><strong>₹7,995</strong></p><button class="btn btn--add"
+                                onclick="addToCart('Eclipse Lifestyle Low',7995,'images/shoe_cricket_spike.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                </div>
+                <div class="section-header" style="margin-top:3rem">
+                    <h2>Clothing</h2><a href="#">View All →</a>
+                </div>
+                <div class="product-grid">
+                    <article class="product-card">
+                        <div class="product-card__img"><img src="images/hoodie_dark.png" alt="Flow Sports Bra"></div>
+                        <div class="product-card__body"><span class="product-card__tag">New</span>
+                            <h3 class="product-card__name">Flow Sports Bra — Orchid</h3>
+                            <p class="product-card__price"><strong>₹2,495</strong></p><button class="btn btn--add"
+                                onclick="addToCart('Flow Sports Bra — Orchid',2495,'images/hoodie_dark.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-card__img"><img src="images/training_shorts.png" alt="Sculpt Leggings">
+                        </div>
+                        <div class="product-card__body"><span class="product-card__tag">Trending</span>
+                            <h3 class="product-card__name">Sculpt High-Rise Leggings</h3>
+                            <p class="product-card__price"><strong>₹4,795</strong></p><button class="btn btn--add"
+                                onclick="addToCart('Sculpt High-Rise Leggings',4795,'images/training_shorts.png')">Add
+                                to Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-card__img"><img src="images/hoodie_dark.png" alt="Dusk Crop Hoodie"></div>
+                        <div class="product-card__body"><span class="product-card__tag">Essential</span>
+                            <h3 class="product-card__name">Dusk Crop Hoodie</h3>
+                            <p class="product-card__price"><strong>₹3,995</strong></p><button class="btn btn--add"
+                                onclick="addToCart('Dusk Crop Hoodie',3995,'images/hoodie_dark.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-card__img"><img src="images/training_shorts.png" alt="Modest Fit Top"></div>
+                        <div class="product-card__body"><span class="product-card__tag">Bestseller</span>
+                            <h3 class="product-card__name">Modest Fit Training Top</h3>
+                            <p class="product-card__price"><strong>₹2,295</strong></p><button class="btn btn--add"
+                                onclick="addToCart('Modest Fit Training Top',2295,'images/training_shorts.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__grid">
+            <div class="footer__brand">
+                <h3>UMBRA</h3>
+                <p>Premium athletic gear forged in the shadows.</p>
+            </div>
+            <nav class="footer__links">
+                <div class="footer__col">
+                    <h4>Products</h4><a href="#">Shoes</a><a href="#">Clothing</a><a href="#">Accessories</a>
+                </div>
+                <div class="footer__col">
+                    <h4>Company</h4><a href="#">About Us</a><a href="#">Careers</a><a href="#">Blog</a>
+                </div>
+                <div class="footer__col">
+                    <h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a>
+                </div>
+            </nav>
+        </div>
+        <div class="footer__bottom">&copy; 2026 Umbra Inc. All rights reserved.</div>
+    </footer>
+    <script src="cart.js"></script>
+</body>
+
+</html>
