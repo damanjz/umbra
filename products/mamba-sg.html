@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mamba SG — Soft Ground — Umbra</title>
+    <meta name="description"
+        content="The Umbra Shadow Runner X — lightweight, responsive running shoe built for speed.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__top"><a href="#">Help</a><a href="#">Sign Up</a><a href="#">Log In</a></div>
+        <div class="header__bar">
+            <a href="../index.html" class="header__logo">UMBRA</a>
+            <ul class="nav">
+                <li class="nav__item"><a href="../index.html">New & Featured</a></li>
+                <li class="nav__item"><a href="../men.html">Men</a></li>
+                <li class="nav__item"><a href="../women.html">Women</a></li>
+                <li class="nav__item"><a href="../kids.html">Kids</a></li>
+            </ul>
+            <div class="actions">
+                <div class="actions__search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg><input type="text" placeholder="Search"></div>
+                <a href="#" class="actions__icon" aria-label="Favorites"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg></a>
+                <button class="actions__icon cart-toggle" aria-label="Cart" id="cartToggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-sidebar__header">
+            <h3>Your Cart</h3><button class="cart-sidebar__close" id="cartClose">&times;</button>
+        </div>
+        <div class="cart-sidebar__items" id="cartItems">
+            <p class="cart-sidebar__empty">Your cart is empty.</p>
+        </div>
+        <div class="cart-sidebar__footer" id="cartFooter" style="display:none">
+            <div class="cart-sidebar__total">Total: <strong id="cartTotal">₹0</strong></div>
+            <a href="../checkout.html" class="btn btn--accent btn--full">Checkout</a>
+        </div>
+    </aside>
+
+    <main>
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb">
+            <div class="container"><a href="../index.html">Home</a> <span>/</span> <a href="../men.html">Men</a>
+                <span>/</span> <span class="breadcrumb--current">Umbra Shadow Runner X</span></div>
+        </nav>
+
+        <section class="pdp">
+            <div class="container">
+                <div class="pdp__grid">
+                    <!-- Image Gallery -->
+                    <div class="pdp__gallery">
+                        <div class="pdp__main-img">
+                            <img src="../images/shoe_football.png" alt="Umbra Shadow Runner X" id="mainImage">
+                        </div>
+                        <div class="pdp__thumbs">
+                            <button class="pdp__thumb pdp__thumb--active"
+                                onclick="changeImage(this, '../images/shoe_shadow_runner.png')"><img
+                                    src="../images/shoe_shadow_runner.png" alt="View 1"></button>
+                            <button class="pdp__thumb"
+                                onclick="changeImage(this, '../images/shoe_shadow_runner.png')"><img
+                                    src="../images/shoe_shadow_runner.png" alt="View 2"></button>
+                            <button class="pdp__thumb"
+                                onclick="changeImage(this, '../images/shoe_shadow_runner.png')"><img
+                                    src="../images/shoe_shadow_runner.png" alt="View 3"></button>
+                        </div>
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="pdp__info">
+                        <span class="pdp__tag">New Release</span>
+                        <h1 class="pdp__title">Mamba SG — Soft Ground</h1>
+                        <p class="pdp__category">Men's Running Shoe</p>
+                        <p class="pdp__price">&#8377;13,495</p>
+                        <p class="pdp__tax">Incl. of all taxes</p>
+
+                        <div class="pdp__color">
+                            <span class="pdp__label">Colour: <strong>Shadow Black / Violet</strong></span>
+                            <div class="pdp__color-swatches">
+                                <button class="pdp__swatch pdp__swatch--active"
+                                    style="background:linear-gradient(135deg,#1a1a2e,#9b6dff)"
+                                    title="Shadow Black / Violet"></button>
+                                <button class="pdp__swatch" style="background:linear-gradient(135deg,#f5f5f5,#e0e0e0)"
+                                    title="Pure White"></button>
+                                <button class="pdp__swatch" style="background:linear-gradient(135deg,#333,#666)"
+                                    title="Graphite"></button>
+                            </div>
+                        </div>
+
+                        <!-- Size Selection -->
+                        <div class="pdp__sizes">
+                            <div class="pdp__size-header">
+                                <span class="pdp__label">Select Size</span>
+                                <button class="pdp__size-guide-btn" onclick="openSizeChart()">📏 Size Guide</button>
+                            </div>
+                            <div class="pdp__size-grid" id="sizeGrid">
+                                <button class="pdp__size" data-size="UK 6">UK 6</button>
+                                <button class="pdp__size" data-size="UK 7">UK 7</button>
+                                <button class="pdp__size" data-size="UK 8">UK 8</button>
+                                <button class="pdp__size" data-size="UK 9">UK 9</button>
+                                <button class="pdp__size" data-size="UK 10">UK 10</button>
+                                <button class="pdp__size" data-size="UK 11">UK 11</button>
+                                <button class="pdp__size pdp__size--oos" disabled>UK 12</button>
+                                <button class="pdp__size" data-size="UK 13">UK 13</button>
+                            </div>
+                            <p class="pdp__size-error" id="sizeError" style="display:none">Please select a size</p>
+                        </div>
+
+                        <!-- CTA -->
+                        <button class="btn btn--accent btn--full pdp__add-btn" id="addToCartBtn"
+                            onclick="handleAddToCart()">Add to Cart</button>
+                        <button class="btn btn--ghost btn--full" style="margin-top:0.75rem">♡ Add to Wishlist</button>
+
+                        <!-- Product Details Accordion -->
+                        <div class="pdp__details">
+                            <div class="pdp__accordion">
+                                <button class="pdp__accordion-toggle" onclick="toggleAccordion(this)">
+                                    <span>Product Details</span><span class="pdp__accordion-icon">+</span>
+                                </button>
+                                <div class="pdp__accordion-body">
+                                    <p>The Umbra Shadow Runner X is built for those who own the road. Featuring a
+                                        lightweight mesh upper for breathability, a responsive cushioning system for
+                                        all-day comfort, and a durable rubber outsole for grip on any surface.</p>
+                                    <ul>
+                                        <li>Engineered mesh upper for maximum breathability</li>
+                                        <li>UmbraCush™ midsole for responsive energy return</li>
+                                        <li>Rubber waffle outsole for multi-surface traction</li>
+                                        <li>Pull tab at heel for easy on/off</li>
+                                        <li>Reflective accents for low-light visibility</li>
+                                        <li>Weight: 280g (UK 9)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="pdp__accordion">
+                                <button class="pdp__accordion-toggle" onclick="toggleAccordion(this)">
+                                    <span>Delivery & Returns</span><span class="pdp__accordion-icon">+</span>
+                                </button>
+                                <div class="pdp__accordion-body">
+                                    <p><strong>Free delivery</strong> on orders above ₹4,999. Standard delivery 5–7
+                                        business days.</p>
+                                    <p>Free returns within 30 days. Items must be unworn with original tags attached.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="pdp__accordion">
+                                <button class="pdp__accordion-toggle" onclick="toggleAccordion(this)">
+                                    <span>Reviews (47)</span><span class="pdp__accordion-icon">+</span>
+                                </button>
+                                <div class="pdp__accordion-body">
+                                    <div class="pdp__rating">
+                                        <span class="pdp__stars">★★★★★</span>
+                                        <span>4.8 out of 5</span>
+                                    </div>
+                                    <p>"Best running shoe I've ever owned. Incredibly light and the cushioning is next
+                                        level." — <strong>Arjun M.</strong></p>
+                                    <p>"True to size, looks even better in person." — <strong>Sneha R.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- SIZE CHART MODAL -->
+    <div class="modal-overlay" id="sizeChartOverlay" onclick="closeSizeChart()"></div>
+    <div class="modal" id="sizeChartModal">
+        <div class="modal__header">
+            <h3>Size Guide — Shoes</h3>
+            <button class="modal__close" onclick="closeSizeChart()">&times;</button>
+        </div>
+        <div class="modal__body">
+            <p class="modal__tip">Measure your foot length in cm and find your perfect fit below.</p>
+            <table class="size-chart">
+                <thead>
+                    <tr>
+                        <th>UK</th>
+                        <th>US</th>
+                        <th>EU</th>
+                        <th>CM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>39</td>
+                        <td>24.5</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>40</td>
+                        <td>25.5</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>41</td>
+                        <td>26</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>42</td>
+                        <td>26.5</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>11</td>
+                        <td>43</td>
+                        <td>27.5</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>12</td>
+                        <td>44</td>
+                        <td>28.5</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>45</td>
+                        <td>29</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>14</td>
+                        <td>46</td>
+                        <td>30</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="modal__fit-tips">
+                <h4>Fit Tips</h4>
+                <ul>
+                    <li>If you're between sizes, we recommend going a half size up.</li>
+                    <li>This model runs true to size.</li>
+                    <li>For wide feet, consider going one full size up.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer__grid">
+            <div class="footer__brand">
+                <h3>UMBRA</h3>
+                <p>Premium athletic gear forged in the shadows.</p>
+            </div>
+            <nav class="footer__links">
+                <div class="footer__col">
+                    <h4>Products</h4><a href="#">Shoes</a><a href="#">Clothing</a><a href="#">Accessories</a>
+                </div>
+                <div class="footer__col">
+                    <h4>Company</h4><a href="#">About Us</a><a href="#">Careers</a><a href="#">Blog</a>
+                </div>
+                <div class="footer__col">
+                    <h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a>
+                </div>
+            </nav>
+        </div>
+        <div class="footer__bottom">&copy; 2026 Umbra Inc. All rights reserved.</div>
+    </footer>
+
+    <script src="../cart.js"></script>
+    <script src="../product.js"></script>
+</body>
+
+</html>
