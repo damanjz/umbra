@@ -28,7 +28,30 @@
         <div class="header__bar">
             <a href="index.html" class="header__logo">UMBRA</a>
             <ul class="nav">
-                <li class="nav__item nav__item--active"><a href="index.html">New & Featured</a></li>
+                <li class="nav__item">
+                    <a href="#">New & Featured</a>
+                    <div class="mega">
+                        <div class="mega__col">
+                            <div class="mega__heading">Featured</div><a href="new-arrivals.html" class="mega__link">New
+                                Arrivals</a><a href="bestsellers.html" class="mega__link">Bestsellers</a><a
+                                href="top-picks.html" class="mega__link">Top Picks
+                                Under ₹4999</a>
+                        </div>
+                        <div class="mega__col">
+                            <div class="mega__heading">Trending</div><a href="retro-running.html"
+                                class="mega__link">Retro Running</a><a href="shadow-collection.html"
+                                class="mega__link">Shadow Collection</a><a href="domain-3.html"
+                                class="mega__link">Domain
+                                3</a>
+                        </div>
+                        <div class="mega__col">
+                            <div class="mega__heading">Sport</div><a href="cricket.html"
+                                class="mega__link">Cricket</a><a href="running.html" class="mega__link">Running</a><a
+                                href="gym-training.html" class="mega__link">Gym & Training</a><a href="football.html"
+                                class="mega__link">Football</a>
+                        </div>
+                    </div>
+                </li>
                 <li class="nav__item"><a href="men.html">Men</a></li>
                 <li class="nav__item"><a href="women.html">Women</a></li>
                 <li class="nav__item"><a href="kids.html">Kids</a></li>
@@ -104,14 +127,15 @@
                         </div>
                     </article>
                     <article class="product-card">
-                        <div class="product-card__img"><img src="images/shoe_cricket_spike.png" alt="Vortex Trainer">
-                        </div>
+                        <a href="products/domain-3-cricket-spike.html" class="product-card__img"><img
+                                src="images/shoe_cricket_spike.png" alt="Domain 3"></a>
                         <div class="product-card__body"><span class="product-card__tag">Just In</span>
-                            <h3 class="product-card__name">Vortex Trainer Pro</h3>
-                            <p class="product-card__price"><strong>&#8377;9,495</strong></p>
+                            <h3 class="product-card__name"><a href="products/domain-3-cricket-spike.html">Domain 3
+                                    Cricket Spike</a></h3>
+                            <p class="product-card__price"><strong>&#8377;12,495</strong></p>
                             <button class="btn btn--add"
-                                onclick="addToCart('Vortex Trainer Pro',9495,'images/shoe_cricket_spike.png')">Add to
-                                Cart</button>
+                                onclick="addToCart('Domain 3 Cricket Spike',12495,'images/shoe_cricket_spike.png')">Add
+                                to Cart</button>
                         </div>
                     </article>
                     <article class="product-card">
@@ -123,6 +147,17 @@
                             <p class="product-card__price"><strong>&#8377;2,795</strong></p>
                             <button class="btn btn--add"
                                 onclick="addToCart('Eclipse Training Shorts',2795,'images/training_shorts.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-card__img"><img src="images/shoe_shadow_runner.png" alt="Aura Training Max">
+                        </div>
+                        <div class="product-card__body"><span class="product-card__tag">Just In</span>
+                            <h3 class="product-card__name">Aura Training Max</h3>
+                            <p class="product-card__price"><strong>&#8377;10,995</strong></p>
+                            <button class="btn btn--add"
+                                onclick="addToCart('Aura Training Max',10995,'images/shoe_shadow_runner.png')">Add to
                                 Cart</button>
                         </div>
                     </article>
