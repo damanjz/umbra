@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Arrivals — Umbra</title>
+    <meta name="description" content="Shop the latest drops from Umbra. Fresh styles, premium performance.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="promo-marquee">
+            <div class="promo-marquee__track"><span class="promo-marquee__item">Free Shipping on orders over
+                    &#8377;4,999</span><span class="promo-marquee__item">Use code SHADOW20 for 20% off your first
+                    order</span><span class="promo-marquee__item">New Season Drops &#8212; Shadow Collection</span><span
+                    class="promo-marquee__item">Students get 15% off with UNiDAYS</span><span
+                    class="promo-marquee__item">Free Returns within 30 days</span><span class="promo-marquee__item">Free
+                    Shipping on orders over &#8377;4,999</span><span class="promo-marquee__item">Use code SHADOW20 for
+                    20% off your first order</span><span class="promo-marquee__item">New Season Drops &#8212; Shadow
+                    Collection</span><span class="promo-marquee__item">Students get 15% off with UNiDAYS</span><span
+                    class="promo-marquee__item">Free Returns within 30 days</span></div>
+        </div>
+        <div class="header__top"><a href="#">Help</a><a href="#">Sign Up</a><a href="#">Log In</a></div>
+        <div class="header__bar">
+            <a href="index.html" class="header__logo">UMBRA</a>
+            <ul class="nav">
+                <li class="nav__item nav__item--active"><a href="index.html">New & Featured</a></li>
+                <li class="nav__item"><a href="men.html">Men</a></li>
+                <li class="nav__item"><a href="women.html">Women</a></li>
+                <li class="nav__item"><a href="kids.html">Kids</a></li>
+            </ul>
+            <div class="actions">
+                <div class="actions__search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg><input type="text" placeholder="Search"></div>
+                <a href="#" class="actions__icon" aria-label="Favorites"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg></a>
+                <button class="actions__icon cart-toggle" aria-label="Cart" id="cartToggle"><svg viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg><span class="cart-badge" id="cartBadge">0</span></button>
+            </div>
+        </div>
+    </header>
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-sidebar__header">
+            <h3>Your Cart</h3><button class="cart-sidebar__close" id="cartClose">&times;</button>
+        </div>
+        <div class="cart-sidebar__items" id="cartItems">
+            <p class="cart-sidebar__empty">Your cart is empty.</p>
+        </div>
+        <div class="cart-sidebar__footer" id="cartFooter" style="display:none">
+            <div class="cart-sidebar__total">Total: <strong id="cartTotal">&#8377;0</strong></div><a
+                href="checkout.html" class="btn btn--accent btn--full">Checkout</a>
+        </div>
+    </aside>
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1>New Arrivals</h1>
+                <p>Just dropped. The latest from Umbra's design lab, engineered for those who refuse to blend in.</p>
+            </div>
+        </section>
+        <section class="products">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Fresh Drops</h2>
+                </div>
+                <div class="product-grid">
+                    <article class="product-card">
+                        <a href="products/shadow-runner-x.html" class="product-card__img"><img
+                                src="images/shoe_shadow_runner.png" alt="Shadow Runner X"></a>
+                        <div class="product-card__body"><span class="product-card__tag">Just In</span>
+                            <h3 class="product-card__name"><a href="products/shadow-runner-x.html">Umbra Shadow Runner
+                                    X</a></h3>
+                            <p class="product-card__price"><strong>&#8377;8,995</strong></p>
+                            <button class="btn btn--add"
+                                onclick="addToCart('Umbra Shadow Runner X',8995,'images/shoe_shadow_runner.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <a href="products/nightfall-hoodie.html" class="product-card__img"><img
+                                src="images/hoodie_dark.png" alt="Nightfall Hoodie"></a>
+                        <div class="product-card__body"><span class="product-card__tag">New</span>
+                            <h3 class="product-card__name"><a href="products/nightfall-hoodie.html">Nightfall Hoodie
+                                    &#8212; Onyx</a></h3>
+                            <p class="product-card__price"><strong>&#8377;4,295</strong></p>
+                            <button class="btn btn--add"
+                                onclick="addToCart('Nightfall Hoodie',4295,'images/hoodie_dark.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-card__img"><img src="images/shoe_cricket_spike.png" alt="Vortex Trainer">
+                        </div>
+                        <div class="product-card__body"><span class="product-card__tag">Just In</span>
+                            <h3 class="product-card__name">Vortex Trainer Pro</h3>
+                            <p class="product-card__price"><strong>&#8377;9,495</strong></p>
+                            <button class="btn btn--add"
+                                onclick="addToCart('Vortex Trainer Pro',9495,'images/shoe_cricket_spike.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <a href="products/eclipse-training-shorts.html" class="product-card__img"><img
+                                src="images/training_shorts.png" alt="Eclipse Shorts"></a>
+                        <div class="product-card__body"><span class="product-card__tag">New</span>
+                            <h3 class="product-card__name"><a href="products/eclipse-training-shorts.html">Eclipse
+                                    Training Shorts</a></h3>
+                            <p class="product-card__price"><strong>&#8377;2,795</strong></p>
+                            <button class="btn btn--add"
+                                onclick="addToCart('Eclipse Training Shorts',2795,'images/training_shorts.png')">Add to
+                                Cart</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer__grid">
+            <div class="footer__brand">
+                <h3>UMBRA</h3>
+                <p>Premium athletic gear forged in the shadows.</p>
+            </div>
+            <nav class="footer__links">
+                <div class="footer__col">
+                    <h4>Products</h4><a href="#">Shoes</a><a href="#">Clothing</a><a href="#">Accessories</a>
+                </div>
+                <div class="footer__col">
+                    <h4>Company</h4><a href="#">About Us</a><a href="#">Careers</a><a href="#">Blog</a>
+                </div>
+                <div class="footer__col">
+                    <h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a>
+                </div>
+            </nav>
+        </div>
+        <div class="footer__bottom">&copy; 2026 Umbra Inc. All rights reserved.</div>
+    </footer>
+    <script src="cart.js"></script>
+</body>
+
+</html>
