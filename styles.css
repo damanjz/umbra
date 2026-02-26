@@ -1429,6 +1429,222 @@ button {
 }
 
 /* =======================================================
+   CURSOR GLOW + PARTICLE CANVAS
+   ======================================================= */
+.scroll-hero__cursor-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.scroll-hero__particles {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* =======================================================
+   SEARCH OVERLAY
+   ======================================================= */
+.search-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 11, 15, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 12vh;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.search-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.search-overlay__close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color var(--transition);
+}
+
+.search-overlay__close:hover {
+    color: var(--white);
+}
+
+.search-overlay__input-wrap {
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+}
+
+.search-overlay__input {
+    width: 100%;
+    padding: 1.2rem 1.5rem 1.2rem 3rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: 500;
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.search-overlay__input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(180, 142, 255, 0.15);
+}
+
+.search-overlay__icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.search-overlay__results {
+    width: 90%;
+    max-width: 600px;
+    margin-top: 1.5rem;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.search-result {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition);
+    text-decoration: none;
+    color: var(--text);
+}
+
+.search-result:hover {
+    background: var(--bg-surface);
+}
+
+.search-result__img {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    background: var(--bg-surface);
+    flex-shrink: 0;
+}
+
+.search-result__info {
+    flex: 1;
+}
+
+.search-result__name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.search-result__price {
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.search-result__cat {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.search-overlay__empty {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 2rem 0;
+    font-size: 0.95rem;
+}
+
+/* =======================================================
+   FAVORITES
+   ======================================================= */
+.favorites-empty {
+    text-align: center;
+    padding: 5rem 2rem;
+    color: var(--text-muted);
+}
+
+.favorites-empty svg {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1.5rem;
+    opacity: 0.4;
+}
+
+.favorites-empty h2 {
+    color: var(--text);
+    margin-bottom: 0.75rem;
+}
+
+.product-card__img {
+    position: relative;
+}
+
+.product-card__fav {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(11, 11, 15, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+    z-index: 5;
+}
+
+.product-card__fav:hover {
+    border-color: var(--danger);
+    color: var(--danger);
+    transform: scale(1.1);
+}
+
+.product-card__fav.active {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: var(--white);
+}
+
+.product-card__fav svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* =======================================================
    13. MISSION SECTION
    ======================================================= */
 .mission {

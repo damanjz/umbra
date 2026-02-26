@@ -72,6 +72,68 @@ document.addEventListener('DOMContentLoaded', () => {
                 indicator.style.opacity = 1 - Math.min(1, progress / 0.12);
             }
         }, { passive: true });
+
+        // --- Mouse Cursor Reactions ---
+        let mouseX = 0.5, mouseY = 0.5; // normalized 0–1
+        let targetX = 0.5, targetY = 0.5;
+
+        // Create cursor glow element
+        const cursorGlow = document.createElement('div');
+        cursorGlow.className = 'scroll-hero__cursor-glow';
+        const stickyContainer = document.querySelector('.scroll-hero__sticky');
+        if (stickyContainer) stickyContainer.appendChild(cursorGlow);
+
+        heroSection.addEventListener('mousemove', (e) => {
+            const rect = heroSection.getBoundingClientRect();
+            targetX = (e.clientX - rect.left) / rect.width;
+            targetY = (e.clientY - rect.top) / rect.height;
+        });
+
+        heroSection.addEventListener('mouseleave', () => {
+            targetX = 0.5;
+            targetY = 0.5;
+        });
+
+        // Smooth animation loop for mouse effects
+        function updateMouseEffects() {
+            // Lerp for smooth movement
+            mouseX += (targetX - mouseX) * 0.08;
+            mouseY += (targetY - mouseY) * 0.08;
+
+            // 1. Cursor glow spotlight
+            const glowX = mouseX * 100;
+            const glowY = mouseY * 100;
+            cursorGlow.style.background = `radial-gradient(circle 250px at ${glowX}% ${glowY}%, rgba(180, 142, 255, 0.12), transparent 70%)`;
+
+            // 2. Parallax tilt on layers (subtle shift based on mouse)
+            const offsetX = (mouseX - 0.5) * 2; // -1 to 1
+            const offsetY = (mouseY - 0.5) * 2;
+            layers.forEach((layer, i) => {
+                const depth = (i + 1) * 8; // deeper layers move more
+                const currentTransform = layer.style.transform || '';
+                // Preserve scroll transform but add mouse offset
+                const translateMatch = currentTransform.match(/translateY\(([^)]+)\)/);
+                const scrollY = translateMatch ? translateMatch[1] : '0px';
+                const scaleMatch = currentTransform.match(/scale\(([^)]+)\)/);
+                const scrollScale = scaleMatch ? scaleMatch[1] : '1';
+                layer.style.transform = `translateY(${scrollY}) translateX(${offsetX * depth}px) scale(${scrollScale})`;
+            });
+
+            // 3. Wordmark subtle tilt
+            if (wordmark) {
+                const tiltX = offsetY * -3; // inverse for natural feel
+                const tiltY = offsetX * 3;
+                const currentScale = wordmark.style.transform.match(/scale\(([^)]+)\)/);
+                const s = currentScale ? currentScale[1] : '1';
+                wordmark.style.transform = `scale(${s}) perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+            }
+
+            requestAnimationFrame(updateMouseEffects);
+        }
+        requestAnimationFrame(updateMouseEffects);
+
+        // Expose mouse position for particle repulsion
+        window.__heroMouse = { get x() { return mouseX; }, get y() { return mouseY; } };
     }
 
     // --- Reveal on Scroll (Intersection Observer) ---
@@ -176,6 +238,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 p.y += p.speedY;
                 p.pulse += p.pulseSpeed;
                 const glow = p.opacity * (0.6 + 0.4 * Math.sin(p.pulse));
+
+                // Mouse repulsion — particles flee the cursor
+                if (window.__heroMouse) {
+                    const mx = window.__heroMouse.x * canvas.width;
+                    const my = window.__heroMouse.y * canvas.height;
+                    const dx = p.x - mx;
+                    const dy = p.y - my;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const repelRadius = 120;
+                    if (dist < repelRadius && dist > 0) {
+                        const force = (1 - dist / repelRadius) * 2.5;
+                        p.x += (dx / dist) * force;
+                        p.y += (dy / dist) * force;
+                    }
+                }
 
                 // Reset when off-screen
                 if (p.y < -10 || p.x < -10 || p.x > canvas.width + 10) {
