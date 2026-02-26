@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ultra Mile — Marathon — Umbra</title>
     <meta name="description"
-        content="The Umbra Shadow Runner X — lightweight, responsive running shoe built for speed.">
+        content="Maximum cushioning for marathon distances. ZoomStack™ foam with 40mm stack.">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
@@ -64,7 +64,7 @@
         <!-- Breadcrumb -->
         <nav class="breadcrumb">
             <div class="container"><a href="../index.html">Home</a> <span>/</span> <a href="../men.html">Men</a>
-                <span>/</span> <span class="breadcrumb--current">Umbra Shadow Runner X</span></div>
+                <span>/</span> <span class="breadcrumb--current">Ultra Mile — Marathon</span></div>
         </nav>
 
         <section class="pdp">
@@ -73,27 +73,27 @@
                     <!-- Image Gallery -->
                     <div class="pdp__gallery">
                         <div class="pdp__main-img">
-                            <img src="../images/shoe_shadow_runner.png" alt="Umbra Shadow Runner X" id="mainImage">
+                            <img src="../images/shoe_shadow_glide.png" alt="Umbra Shadow Runner X" id="mainImage">
                         </div>
                         <div class="pdp__thumbs">
                             <button class="pdp__thumb pdp__thumb--active"
-                                onclick="changeImage(this, '../images/shoe_shadow_runner.png')"><img
-                                    src="../images/shoe_shadow_runner.png" alt="View 1"></button>
+                                onclick="changeImage(this, '../images/shoe_shadow_glide.png')"><img
+                                    src="../images/shoe_shadow_glide.png" alt="View 1"></button>
                             <button class="pdp__thumb"
-                                onclick="changeImage(this, '../images/shoe_shadow_runner.png')"><img
-                                    src="../images/shoe_shadow_runner.png" alt="View 2"></button>
+                                onclick="changeImage(this, '../images/shoe_shadow_glide.png')"><img
+                                    src="../images/shoe_shadow_glide.png" alt="View 2"></button>
                             <button class="pdp__thumb"
-                                onclick="changeImage(this, '../images/shoe_shadow_runner.png')"><img
-                                    src="../images/shoe_shadow_runner.png" alt="View 3"></button>
+                                onclick="changeImage(this, '../images/shoe_shadow_glide.png')"><img
+                                    src="../images/shoe_shadow_glide.png" alt="View 3"></button>
                         </div>
                     </div>
 
                     <!-- Product Info -->
                     <div class="pdp__info">
-                        <span class="pdp__tag">New Release</span>
+                        <span class="pdp__tag">Distance</span>
                         <h1 class="pdp__title">Ultra Mile — Marathon</h1>
                         <p class="pdp__category">Men's Running Shoe</p>
-                        <p class="pdp__price">&#8377;10,995</p>
+                        <p class="pdp__price">₹10,995</p>
                         <p class="pdp__tax">Incl. of all taxes</p>
 
                         <div class="pdp__color">
@@ -140,9 +140,7 @@
                                     <span>Product Details</span><span class="pdp__accordion-icon">+</span>
                                 </button>
                                 <div class="pdp__accordion-body">
-                                    <p>The Umbra Shadow Runner X is built for those who own the road. Featuring a
-                                        lightweight mesh upper for breathability, a responsive cushioning system for
-                                        all-day comfort, and a durable rubber outsole for grip on any surface.</p>
+                                    <p>Maximum cushioning for marathon distances. ZoomStack™ foam with 40mm stack. Crafted with premium materials for maximum durability and performance.</p>
                                     <ul>
                                         <li>Engineered mesh upper for maximum breathability</li>
                                         <li>UmbraCush™ midsole for responsive energy return</li>
@@ -287,6 +285,15 @@
     </footer>
 
     <script src="../cart.js"></script>
+    <script>
+    const PRODUCT_DATA = {name:"Ultra Mile — Marathon", price:10995, image:"../images/shoe_shadow_glide.png"};
+    function handleAddToCart() {
+        const sel = document.querySelector('.pdp__size--active');
+        if (!sel) { document.getElementById('sizeError').style.display='block'; return; }
+        document.getElementById('sizeError').style.display='none';
+        addToCart(PRODUCT_DATA.name, PRODUCT_DATA.price, PRODUCT_DATA.image);
+    }
+    </script>
     <script src="../product.js"></script>
 </body>
 
