@@ -1113,7 +1113,6 @@ button {
    ======================================================= */
 .scroll-hero {
     height: 300vh;
-    /* Scroll room */
     position: relative;
 }
 
@@ -1125,6 +1124,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--bg);
 }
 
 .scroll-hero__bg {
@@ -1140,30 +1140,126 @@ button {
     will-change: transform, opacity;
 }
 
+/* Refined gradient orbs with WCAG-compliant accent */
 .scroll-hero__layer--1 {
-    background: radial-gradient(circle at 30% 40%, rgba(155, 109, 255, 0.25), transparent 60%);
-    animation: ambientPulse 4s ease-in-out infinite alternate;
+    background: radial-gradient(circle at 25% 35%, rgba(180, 142, 255, 0.3), transparent 55%);
+    animation: ambientDrift1 6s ease-in-out infinite alternate;
 }
 
 .scroll-hero__layer--2 {
-    background: radial-gradient(circle at 70% 60%, rgba(123, 78, 216, 0.2), transparent 55%);
-    animation: ambientPulse 5s ease-in-out 1s infinite alternate;
+    background: radial-gradient(circle at 75% 65%, rgba(154, 111, 224, 0.25), transparent 50%);
+    animation: ambientDrift2 8s ease-in-out 1s infinite alternate;
 }
 
 .scroll-hero__layer--3 {
     background:
-        radial-gradient(circle at 50% 50%, rgba(201, 160, 255, 0.1), transparent 50%),
-        url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='p' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='40' cy='40' r='1.5' fill='%239b6dff' fill-opacity='.06'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23p)' width='80' height='80'/%3E%3C/svg%3E");
-    animation: ambientPulse 6s ease-in-out 2s infinite alternate;
+        radial-gradient(circle at 50% 50%, rgba(212, 184, 255, 0.12), transparent 45%),
+        url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='p' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='40' cy='40' r='1' fill='%23b48eff' fill-opacity='.05'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23p)' width='80' height='80'/%3E%3C/svg%3E");
+    animation: ambientDrift3 10s ease-in-out 2s infinite alternate;
 }
 
-@keyframes ambientPulse {
+/* Floating orbs that drift around the hero */
+.scroll-hero__sticky::before,
+.scroll-hero__sticky::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.scroll-hero__sticky::before {
+    width: 400px;
+    height: 400px;
+    background: rgba(180, 142, 255, 0.12);
+    top: 10%;
+    left: -5%;
+    animation: orbFloat1 12s ease-in-out infinite;
+}
+
+.scroll-hero__sticky::after {
+    width: 300px;
+    height: 300px;
+    background: rgba(154, 111, 224, 0.1);
+    bottom: 10%;
+    right: -5%;
+    animation: orbFloat2 14s ease-in-out 3s infinite;
+}
+
+@keyframes orbFloat1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(60px, 40px) scale(1.1);
+    }
+
+    50% {
+        transform: translate(30px, 80px) scale(0.95);
+    }
+
+    75% {
+        transform: translate(-30px, 40px) scale(1.05);
+    }
+}
+
+@keyframes orbFloat2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(-50px, -30px) scale(1.08);
+    }
+
+    50% {
+        transform: translate(-20px, -70px) scale(0.92);
+    }
+
+    75% {
+        transform: translate(40px, -30px) scale(1.04);
+    }
+}
+
+@keyframes ambientDrift1 {
     from {
-        opacity: var(--ambient-from, 0.1);
+        opacity: 0.1;
+        transform: translate(0, 0) scale(1);
     }
 
     to {
-        opacity: var(--ambient-to, 0.25);
+        opacity: 0.3;
+        transform: translate(20px, -10px) scale(1.05);
+    }
+}
+
+@keyframes ambientDrift2 {
+    from {
+        opacity: 0.08;
+        transform: translate(0, 0) scale(1);
+    }
+
+    to {
+        opacity: 0.25;
+        transform: translate(-15px, 15px) scale(1.08);
+    }
+}
+
+@keyframes ambientDrift3 {
+    from {
+        opacity: 0.05;
+        transform: scale(1) rotate(0deg);
+    }
+
+    to {
+        opacity: 0.2;
+        transform: scale(1.03) rotate(1deg);
     }
 }
 
@@ -1172,9 +1268,17 @@ button {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 200px;
+    height: 250px;
     background: linear-gradient(to top, var(--bg), transparent);
     z-index: 2;
+}
+
+/* Particle canvas */
+.scroll-hero__particles {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .scroll-hero__content {
@@ -1187,11 +1291,18 @@ button {
     justify-content: center;
 }
 
+/* Wordmark with shimmer sweep */
 .scroll-hero__wordmark {
     font-size: clamp(4rem, 12vw, 10rem);
     font-weight: 900;
     letter-spacing: -4px;
-    background: linear-gradient(135deg, var(--accent), #c9a0ff, var(--white));
+    background: linear-gradient(135deg,
+            var(--accent) 0%,
+            #d4b8ff 30%,
+            var(--white) 50%,
+            #d4b8ff 70%,
+            var(--accent) 100%);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1199,6 +1310,40 @@ button {
     opacity: 0;
     transform: scale(5);
     line-height: 1;
+    animation: shimmerGradient 4s ease-in-out infinite;
+    text-shadow: none;
+    position: relative;
+}
+
+/* Glow behind the wordmark */
+.scroll-hero__wordmark::after {
+    content: 'UMBRA';
+    position: absolute;
+    inset: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(135deg, var(--accent), #d4b8ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: blur(30px);
+    opacity: 0.4;
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes shimmerGradient {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 .scroll-hero__reveal {
@@ -1209,10 +1354,11 @@ button {
 }
 
 .scroll-hero__tagline {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: var(--text-muted);
     font-weight: 500;
     margin-bottom: 2rem;
+    letter-spacing: 0.5px;
 }
 
 .scroll-hero__cta {
@@ -1222,25 +1368,52 @@ button {
     flex-wrap: wrap;
 }
 
+/* Refined scroll indicator with pulsing ring */
 .scroll-hero__indicator {
     position: absolute;
-    bottom: 2rem;
+    bottom: 2.5rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 5;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
     color: var(--text-muted);
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 1px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
     text-transform: uppercase;
 }
 
 .scroll-hero__arrow {
-    animation: bounceDown 1.5s ease-in-out infinite;
+    position: relative;
+    animation: bounceDown 2s ease-in-out infinite;
+}
+
+.scroll-hero__arrow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(180, 142, 255, 0.3);
+    border-radius: 50%;
+    animation: pulseRing 2s ease-out infinite;
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.6);
+        opacity: 0;
+    }
 }
 
 @keyframes bounceDown {
@@ -1251,7 +1424,7 @@ button {
     }
 
     50% {
-        transform: translateY(8px);
+        transform: translateY(10px);
     }
 }
 

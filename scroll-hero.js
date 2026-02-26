@@ -130,4 +130,74 @@ document.addEventListener('DOMContentLoaded', () => {
     function easeOutCubic(t) {
         return 1 - Math.pow(1 - t, 3);
     }
+
+    // --- Floating Particles ---
+    const stickyEl = document.querySelector('.scroll-hero__sticky');
+    if (stickyEl) {
+        const canvas = document.createElement('canvas');
+        canvas.className = 'scroll-hero__particles';
+        canvas.setAttribute('aria-hidden', 'true');
+        stickyEl.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const PARTICLE_COUNT = 50;
+
+        function resizeCanvas() {
+            canvas.width = stickyEl.offsetWidth;
+            canvas.height = stickyEl.offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function createParticle() {
+            return {
+                x: Math.random() * canvas.width,
+                y: canvas.height + Math.random() * 20,
+                size: Math.random() * 2 + 0.5,
+                speedY: -(Math.random() * 0.4 + 0.15),
+                speedX: (Math.random() - 0.5) * 0.3,
+                opacity: Math.random() * 0.5 + 0.1,
+                pulse: Math.random() * Math.PI * 2,
+                pulseSpeed: Math.random() * 0.02 + 0.01,
+            };
+        }
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            const p = createParticle();
+            p.y = Math.random() * canvas.height; // Spread initially
+            particles.push(p);
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+                p.pulse += p.pulseSpeed;
+                const glow = p.opacity * (0.6 + 0.4 * Math.sin(p.pulse));
+
+                // Reset when off-screen
+                if (p.y < -10 || p.x < -10 || p.x > canvas.width + 10) {
+                    particles[i] = createParticle();
+                    return;
+                }
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(180, 142, 255, ${glow})`;
+                ctx.fill();
+
+                // Subtle glow ring
+                if (p.size > 1.2) {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(180, 142, 255, ${glow * 0.15})`;
+                    ctx.fill();
+                }
+            });
+            requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+    }
 });
