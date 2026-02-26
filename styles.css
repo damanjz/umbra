@@ -1987,11 +1987,47 @@ button {
     margin-bottom: 0.75rem;
 }
 
+.pdp__title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
+}
+
 .pdp__title {
     font-size: 2rem;
     font-weight: 900;
     letter-spacing: -0.5px;
-    margin-bottom: 0.25rem;
+    margin: 0;
+}
+
+.pdp__fav-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+    margin-top: -0.25rem;
+}
+
+.pdp__fav-btn:hover {
+    color: var(--danger);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.pdp__fav-btn.active {
+    color: var(--danger);
+}
+
+.pdp__fav-btn.active svg {
+    fill: currentColor;
+    stroke: none;
 }
 
 .pdp__category {
