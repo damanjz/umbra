@@ -225,4 +225,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Render favorites page if on it
     renderFavoritesPage();
+
+    // ===== CUSTOM CURSOR (site-wide) =====
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const dot = document.createElement('div');
+        dot.className = 'cursor-dot';
+        const ring = document.createElement('div');
+        ring.className = 'cursor-ring';
+        document.body.appendChild(dot);
+        document.body.appendChild(ring);
+
+        let cx = -100, cy = -100;
+        let rx = -100, ry = -100;
+
+        document.addEventListener('mousemove', (e) => {
+            cx = e.clientX;
+            cy = e.clientY;
+            dot.style.transform = `translate(${cx}px, ${cy}px)`;
+        });
+
+        function animateRing() {
+            rx += (cx - rx) * 0.15;
+            ry += (cy - ry) * 0.15;
+            ring.style.transform = `translate(${rx}px, ${ry}px)`;
+            requestAnimationFrame(animateRing);
+        }
+        animateRing();
+
+        const interactiveSelector = 'a, button, input, select, .product-card, .btn, .actions__icon, .nav__item > a, .filter-size-btn, .filter-colour-btn';
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest(interactiveSelector)) {
+                dot.classList.add('cursor-dot--hover');
+                ring.classList.add('cursor-ring--hover');
+            }
+        });
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest(interactiveSelector)) {
+                dot.classList.remove('cursor-dot--hover');
+                ring.classList.remove('cursor-ring--hover');
+            }
+        });
+
+        document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+        document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '1'; });
+    }
 });

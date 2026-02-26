@@ -123,57 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.__heroMouse = { get x() { return mouseX; }, get y() { return mouseY; } };
     }
 
-    // --- Custom Cursor (site-wide) ---
-    if (window.matchMedia('(pointer: fine)').matches) {
-        const dot = document.createElement('div');
-        dot.className = 'cursor-dot';
-        const ring = document.createElement('div');
-        ring.className = 'cursor-ring';
-        document.body.appendChild(dot);
-        document.body.appendChild(ring);
 
-        let cx = -100, cy = -100; // cursor pos
-        let rx = -100, ry = -100; // ring pos (lerped)
-
-        document.addEventListener('mousemove', (e) => {
-            cx = e.clientX;
-            cy = e.clientY;
-            dot.style.transform = `translate(${cx}px, ${cy}px)`;
-        });
-
-        function animateRing() {
-            rx += (cx - rx) * 0.15;
-            ry += (cy - ry) * 0.15;
-            ring.style.transform = `translate(${rx}px, ${ry}px)`;
-            requestAnimationFrame(animateRing);
-        }
-        animateRing();
-
-        // Scale up on interactive elements
-        const interactiveSelector = 'a, button, input, .product-card, .btn, .actions__icon, .nav__item > a';
-        document.addEventListener('mouseover', (e) => {
-            if (e.target.closest(interactiveSelector)) {
-                dot.classList.add('cursor-dot--hover');
-                ring.classList.add('cursor-ring--hover');
-            }
-        });
-        document.addEventListener('mouseout', (e) => {
-            if (e.target.closest(interactiveSelector)) {
-                dot.classList.remove('cursor-dot--hover');
-                ring.classList.remove('cursor-ring--hover');
-            }
-        });
-
-        // Hide on mouse leave
-        document.addEventListener('mouseleave', () => {
-            dot.style.opacity = '0';
-            ring.style.opacity = '0';
-        });
-        document.addEventListener('mouseenter', () => {
-            dot.style.opacity = '1';
-            ring.style.opacity = '1';
-        });
-    }
 
     // --- Reveal on Scroll (Intersection Observer) ---
     const revealEls = document.querySelectorAll('.reveal-on-scroll');
