@@ -1158,75 +1158,6 @@ button {
     animation: ambientDrift3 10s ease-in-out 2s infinite alternate;
 }
 
-/* Floating orbs that drift around the hero */
-.scroll-hero__sticky::before,
-.scroll-hero__sticky::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    z-index: 1;
-    pointer-events: none;
-}
-
-.scroll-hero__sticky::before {
-    width: 400px;
-    height: 400px;
-    background: rgba(180, 142, 255, 0.12);
-    top: 10%;
-    left: -5%;
-    animation: orbFloat1 12s ease-in-out infinite;
-}
-
-.scroll-hero__sticky::after {
-    width: 300px;
-    height: 300px;
-    background: rgba(154, 111, 224, 0.1);
-    bottom: 10%;
-    right: -5%;
-    animation: orbFloat2 14s ease-in-out 3s infinite;
-}
-
-@keyframes orbFloat1 {
-
-    0%,
-    100% {
-        transform: translate(0, 0) scale(1);
-    }
-
-    25% {
-        transform: translate(60px, 40px) scale(1.1);
-    }
-
-    50% {
-        transform: translate(30px, 80px) scale(0.95);
-    }
-
-    75% {
-        transform: translate(-30px, 40px) scale(1.05);
-    }
-}
-
-@keyframes orbFloat2 {
-
-    0%,
-    100% {
-        transform: translate(0, 0) scale(1);
-    }
-
-    25% {
-        transform: translate(-50px, -30px) scale(1.08);
-    }
-
-    50% {
-        transform: translate(-20px, -70px) scale(0.92);
-    }
-
-    75% {
-        transform: translate(40px, -30px) scale(1.04);
-    }
-}
-
 @keyframes ambientDrift1 {
     from {
         opacity: 0.1;
@@ -1429,15 +1360,60 @@ button {
 }
 
 /* =======================================================
-   CURSOR GLOW + PARTICLE CANVAS
+   CUSTOM CURSOR
    ======================================================= */
-.scroll-hero__cursor-glow {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
+@media (pointer: fine) {
+    * {
+        cursor: none !important;
+    }
 }
 
+.cursor-dot {
+    position: fixed;
+    top: -4px;
+    left: -4px;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform;
+    transition: width 0.2s ease, height 0.2s ease, top 0.2s ease, left 0.2s ease, background 0.2s ease;
+}
+
+.cursor-dot--hover {
+    width: 12px;
+    height: 12px;
+    top: -6px;
+    left: -6px;
+    background: var(--white);
+    mix-blend-mode: difference;
+}
+
+.cursor-ring {
+    position: fixed;
+    top: -20px;
+    left: -20px;
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid rgba(180, 142, 255, 0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    will-change: transform;
+    transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+}
+
+.cursor-ring--hover {
+    width: 56px;
+    height: 56px;
+    top: -28px;
+    left: -28px;
+    border-color: rgba(180, 142, 255, 0.7);
+}
+
+/* Particle canvas */
 .scroll-hero__particles {
     position: absolute;
     inset: 0;

@@ -73,15 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, { passive: true });
 
-        // --- Mouse Cursor Reactions ---
-        let mouseX = 0.5, mouseY = 0.5; // normalized 0–1
+        // --- Mouse Parallax on Hero (no glow) ---
+        let mouseX = 0.5, mouseY = 0.5;
         let targetX = 0.5, targetY = 0.5;
-
-        // Create cursor glow element
-        const cursorGlow = document.createElement('div');
-        cursorGlow.className = 'scroll-hero__cursor-glow';
-        const stickyContainer = document.querySelector('.scroll-hero__sticky');
-        if (stickyContainer) stickyContainer.appendChild(cursorGlow);
 
         heroSection.addEventListener('mousemove', (e) => {
             const rect = heroSection.getBoundingClientRect();
@@ -94,24 +88,17 @@ document.addEventListener('DOMContentLoaded', () => {
             targetY = 0.5;
         });
 
-        // Smooth animation loop for mouse effects
         function updateMouseEffects() {
-            // Lerp for smooth movement
             mouseX += (targetX - mouseX) * 0.08;
             mouseY += (targetY - mouseY) * 0.08;
 
-            // 1. Cursor glow spotlight
-            const glowX = mouseX * 100;
-            const glowY = mouseY * 100;
-            cursorGlow.style.background = `radial-gradient(circle 250px at ${glowX}% ${glowY}%, rgba(180, 142, 255, 0.12), transparent 70%)`;
-
-            // 2. Parallax tilt on layers (subtle shift based on mouse)
-            const offsetX = (mouseX - 0.5) * 2; // -1 to 1
+            const offsetX = (mouseX - 0.5) * 2;
             const offsetY = (mouseY - 0.5) * 2;
+
+            // Parallax layers
             layers.forEach((layer, i) => {
-                const depth = (i + 1) * 8; // deeper layers move more
+                const depth = (i + 1) * 8;
                 const currentTransform = layer.style.transform || '';
-                // Preserve scroll transform but add mouse offset
                 const translateMatch = currentTransform.match(/translateY\(([^)]+)\)/);
                 const scrollY = translateMatch ? translateMatch[1] : '0px';
                 const scaleMatch = currentTransform.match(/scale\(([^)]+)\)/);
@@ -119,9 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 layer.style.transform = `translateY(${scrollY}) translateX(${offsetX * depth}px) scale(${scrollScale})`;
             });
 
-            // 3. Wordmark subtle tilt
+            // Wordmark 3D tilt
             if (wordmark) {
-                const tiltX = offsetY * -3; // inverse for natural feel
+                const tiltX = offsetY * -3;
                 const tiltY = offsetX * 3;
                 const currentScale = wordmark.style.transform.match(/scale\(([^)]+)\)/);
                 const s = currentScale ? currentScale[1] : '1';
@@ -134,6 +121,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Expose mouse position for particle repulsion
         window.__heroMouse = { get x() { return mouseX; }, get y() { return mouseY; } };
+    }
+
+    // --- Custom Cursor (site-wide) ---
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const dot = document.createElement('div');
+        dot.className = 'cursor-dot';
+        const ring = document.createElement('div');
+        ring.className = 'cursor-ring';
+        document.body.appendChild(dot);
+        document.body.appendChild(ring);
+
+        let cx = -100, cy = -100; // cursor pos
+        let rx = -100, ry = -100; // ring pos (lerped)
+
+        document.addEventListener('mousemove', (e) => {
+            cx = e.clientX;
+            cy = e.clientY;
+            dot.style.transform = `translate(${cx}px, ${cy}px)`;
+        });
+
+        function animateRing() {
+            rx += (cx - rx) * 0.15;
+            ry += (cy - ry) * 0.15;
+            ring.style.transform = `translate(${rx}px, ${ry}px)`;
+            requestAnimationFrame(animateRing);
+        }
+        animateRing();
+
+        // Scale up on interactive elements
+        const interactiveSelector = 'a, button, input, .product-card, .btn, .actions__icon, .nav__item > a';
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest(interactiveSelector)) {
+                dot.classList.add('cursor-dot--hover');
+                ring.classList.add('cursor-ring--hover');
+            }
+        });
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest(interactiveSelector)) {
+                dot.classList.remove('cursor-dot--hover');
+                ring.classList.remove('cursor-ring--hover');
+            }
+        });
+
+        // Hide on mouse leave
+        document.addEventListener('mouseleave', () => {
+            dot.style.opacity = '0';
+            ring.style.opacity = '0';
+        });
+        document.addEventListener('mouseenter', () => {
+            dot.style.opacity = '1';
+            ring.style.opacity = '1';
+        });
     }
 
     // --- Reveal on Scroll (Intersection Observer) ---
@@ -193,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return 1 - Math.pow(1 - t, 3);
     }
 
-    // --- Floating Particles ---
+    // --- Floating Particles + Reactive Orbs ---
     const stickyEl = document.querySelector('.scroll-hero__sticky');
     if (stickyEl) {
         const canvas = document.createElement('canvas');
@@ -205,9 +244,32 @@ document.addEventListener('DOMContentLoaded', () => {
         let particles = [];
         const PARTICLE_COUNT = 50;
 
+        // --- ORBS: large glowing circles that react to cursor ---
+        const orbs = [];
+        const ORB_CONFIGS = [
+            { baseX: 0.15, baseY: 0.25, radius: 120, r: 180, g: 142, b: 255, alpha: 0.08 },
+            { baseX: 0.80, baseY: 0.70, radius: 100, r: 154, g: 111, b: 224, alpha: 0.07 },
+            { baseX: 0.50, baseY: 0.15, radius: 90, r: 212, g: 184, b: 255, alpha: 0.06 },
+            { baseX: 0.25, baseY: 0.75, radius: 80, r: 180, g: 142, b: 255, alpha: 0.05 },
+            { baseX: 0.70, baseY: 0.30, radius: 110, r: 140, g: 100, b: 240, alpha: 0.06 },
+            { baseX: 0.90, baseY: 0.50, radius: 70, r: 200, g: 170, b: 255, alpha: 0.05 },
+            { baseX: 0.40, baseY: 0.85, radius: 95, r: 160, g: 120, b: 255, alpha: 0.07 },
+            { baseX: 0.10, baseY: 0.55, radius: 85, r: 190, g: 155, b: 255, alpha: 0.06 },
+        ];
+
         function resizeCanvas() {
             canvas.width = stickyEl.offsetWidth;
             canvas.height = stickyEl.offsetHeight;
+            // Init orb positions on resize
+            ORB_CONFIGS.forEach((cfg, i) => {
+                if (!orbs[i]) {
+                    orbs[i] = {
+                        x: cfg.baseX * canvas.width,
+                        y: cfg.baseY * canvas.height,
+                        vx: 0, vy: 0,
+                    };
+                }
+            });
         }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
@@ -227,34 +289,66 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (let i = 0; i < PARTICLE_COUNT; i++) {
             const p = createParticle();
-            p.y = Math.random() * canvas.height; // Spread initially
+            p.y = Math.random() * canvas.height;
             particles.push(p);
         }
 
-        function drawParticles() {
+        function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const mx = window.__heroMouse ? window.__heroMouse.x * canvas.width : canvas.width / 2;
+            const my = window.__heroMouse ? window.__heroMouse.y * canvas.height : canvas.height / 2;
+
+            // --- Draw orbs (behind particles) ---
+            ORB_CONFIGS.forEach((cfg, i) => {
+                const orb = orbs[i];
+                if (!orb) return;
+
+                // Target: blend between base position and cursor position
+                const attractStrength = 0.3; // how much they follow cursor
+                const targetX = cfg.baseX * canvas.width + (mx - cfg.baseX * canvas.width) * attractStrength;
+                const targetY = cfg.baseY * canvas.height + (my - cfg.baseY * canvas.height) * attractStrength;
+
+                // Elastic spring physics
+                const springK = 0.015;
+                const damping = 0.92;
+                orb.vx += (targetX - orb.x) * springK;
+                orb.vy += (targetY - orb.y) * springK;
+                orb.vx *= damping;
+                orb.vy *= damping;
+                orb.x += orb.vx;
+                orb.y += orb.vy;
+
+                // Draw glowing orb
+                const grad = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, cfg.radius);
+                grad.addColorStop(0, `rgba(${cfg.r}, ${cfg.g}, ${cfg.b}, ${cfg.alpha})`);
+                grad.addColorStop(0.5, `rgba(${cfg.r}, ${cfg.g}, ${cfg.b}, ${cfg.alpha * 0.4})`);
+                grad.addColorStop(1, `rgba(${cfg.r}, ${cfg.g}, ${cfg.b}, 0)`);
+                ctx.beginPath();
+                ctx.arc(orb.x, orb.y, cfg.radius, 0, Math.PI * 2);
+                ctx.fillStyle = grad;
+                ctx.fill();
+            });
+
+            // --- Draw particles ---
             particles.forEach((p, i) => {
                 p.x += p.speedX;
                 p.y += p.speedY;
                 p.pulse += p.pulseSpeed;
                 const glow = p.opacity * (0.6 + 0.4 * Math.sin(p.pulse));
 
-                // Mouse repulsion — particles flee the cursor
+                // Mouse repulsion
                 if (window.__heroMouse) {
-                    const mx = window.__heroMouse.x * canvas.width;
-                    const my = window.__heroMouse.y * canvas.height;
                     const dx = p.x - mx;
                     const dy = p.y - my;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    const repelRadius = 120;
-                    if (dist < repelRadius && dist > 0) {
-                        const force = (1 - dist / repelRadius) * 2.5;
+                    if (dist < 120 && dist > 0) {
+                        const force = (1 - dist / 120) * 2.5;
                         p.x += (dx / dist) * force;
                         p.y += (dy / dist) * force;
                     }
                 }
 
-                // Reset when off-screen
                 if (p.y < -10 || p.x < -10 || p.x > canvas.width + 10) {
                     particles[i] = createParticle();
                     return;
@@ -265,7 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.fillStyle = `rgba(180, 142, 255, ${glow})`;
                 ctx.fill();
 
-                // Subtle glow ring
                 if (p.size > 1.2) {
                     ctx.beginPath();
                     ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
@@ -273,8 +366,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     ctx.fill();
                 }
             });
-            requestAnimationFrame(drawParticles);
+
+            requestAnimationFrame(draw);
         }
-        drawParticles();
+        draw();
     }
 });
