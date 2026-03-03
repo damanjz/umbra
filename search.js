@@ -280,4 +280,84 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
         document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '1'; });
     }
+
+    // ===== 3D PRODUCT SPIN PREVIEW =====
+    const spinToggle = document.querySelector('.pdp__spin-toggle');
+    const mainImgContainer = document.querySelector('.pdp__main-img');
+    const spinElement = document.querySelector('.pdp__3d-spin');
+
+    if (spinToggle && mainImgContainer && spinElement) {
+        let spinActive = false;
+        let isDragging = false;
+        let startX = 0;
+        let currentRotation = 0;
+        let targetRotation = 0;
+        let autoSpinDone = false;
+
+        // Toggle spin mode
+        spinToggle.addEventListener('click', () => {
+            spinActive = !spinActive;
+            spinToggle.classList.toggle('active', spinActive);
+            mainImgContainer.classList.toggle('spin-mode', spinActive);
+
+            if (spinActive && !autoSpinDone) {
+                // Auto-spin once on first activation
+                spinElement.classList.add('auto-spinning');
+                spinElement.addEventListener('animationend', () => {
+                    spinElement.classList.remove('auto-spinning');
+                    spinElement.style.transform = `rotateY(${currentRotation}deg)`;
+                    autoSpinDone = true;
+                }, { once: true });
+            }
+
+            spinToggle.innerHTML = spinActive
+                ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> Exit 3D'
+                : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9" /><polyline points="21 3 21 9 15 9"/></svg> 360° View';
+        });
+
+        // Drag-to-rotate (mouse)
+        spinElement.addEventListener('mousedown', (e) => {
+            if (!spinActive) return;
+            isDragging = true;
+            startX = e.clientX;
+            spinElement.style.transition = 'none';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const delta = e.clientX - startX;
+            targetRotation = currentRotation + delta * 0.5;
+            spinElement.style.transform = `rotateY(${targetRotation}deg) rotateX(${Math.sin(targetRotation * Math.PI / 180) * 3}deg)`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            currentRotation = targetRotation;
+            spinElement.style.transition = 'transform 0.3s ease-out';
+        });
+
+        // Drag-to-rotate (touch)
+        spinElement.addEventListener('touchstart', (e) => {
+            if (!spinActive) return;
+            isDragging = true;
+            startX = e.touches[0].clientX;
+            spinElement.style.transition = 'none';
+        }, { passive: true });
+
+        spinElement.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const delta = e.touches[0].clientX - startX;
+            targetRotation = currentRotation + delta * 0.5;
+            spinElement.style.transform = `rotateY(${targetRotation}deg) rotateX(${Math.sin(targetRotation * Math.PI / 180) * 3}deg)`;
+        }, { passive: true });
+
+        spinElement.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            currentRotation = targetRotation;
+            spinElement.style.transition = 'transform 0.3s ease-out';
+        });
+    }
 });
