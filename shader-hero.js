@@ -1,6 +1,6 @@
 /* =======================================================
    UMBRA — Shader Hero Animation
-   Uses Three.js WebGL shaders for a cinematic hero background
+   Brand-aligned WebGL shader with mouse reactivity
    ======================================================= */
 
 (function () {
@@ -8,9 +8,9 @@
     if (!container) return;
 
     // Check for WebGL support
-    const canvas = document.createElement('canvas');
-    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-    if (!gl) return; // Fallback to CSS layers if no WebGL
+    const testCanvas = document.createElement('canvas');
+    const gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
+    if (!gl) return;
 
     // Vertex shader
     const vertexShader = `
@@ -19,32 +19,62 @@
         }
     `;
 
-    // Fragment shader — animated concentric rings with chromatic aberration
+    // Fragment shader — Umbra brand colors (deep purple, violet, dark) with mouse reactivity
     const fragmentShader = `
-        #define TWO_PI 6.2831853072
-        #define PI 3.14159265359
-
         precision highp float;
         uniform vec2 resolution;
         uniform float time;
+        uniform vec2 mouse;
 
         void main(void) {
             vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
+            
+            // Mouse influence — shift the center toward cursor
+            vec2 center = (mouse * 2.0 - 1.0) * 0.3;
+            vec2 p = uv - center;
+            
             float t = time * 0.05;
             float lineWidth = 0.002;
 
+            // Umbra brand palette: deep purple, violet, dark indigo
+            // Channel 0 = R (muted), Channel 1 = G (very muted), Channel 2 = B (dominant purple)
             vec3 color = vec3(0.0);
-            for (int j = 0; j < 3; j++) {
-                for (int i = 0; i < 5; i++) {
-                    color[j] += lineWidth * float(i * i) / abs(
-                        fract(t - 0.01 * float(j) + float(i) * 0.01) * 5.0
-                        - length(uv)
-                        + mod(uv.x + uv.y, 0.2)
-                    );
-                }
+            
+            for (int i = 0; i < 5; i++) {
+                float fi = float(i);
+                
+                // Purple/violet channel (dominant)
+                color.b += lineWidth * fi * fi / abs(
+                    fract(t + fi * 0.01) * 5.0
+                    - length(p)
+                    + mod(p.x + p.y, 0.2)
+                );
+                
+                // Red channel (muted, creates violet tint)
+                color.r += lineWidth * fi * fi * 0.6 / abs(
+                    fract(t - 0.008 + fi * 0.01) * 5.0
+                    - length(p)
+                    + mod(p.x + p.y, 0.2)
+                );
+                
+                // Green channel (very subtle, deepens the purple)
+                color.g += lineWidth * fi * fi * 0.25 / abs(
+                    fract(t - 0.015 + fi * 0.01) * 5.0
+                    - length(p)
+                    + mod(p.x + p.y, 0.2)
+                );
             }
 
-            gl_FragColor = vec4(color[0], color[1], color[2], 1.0);
+            // Add a subtle radial glow from the mouse position
+            float mouseDist = length(p);
+            float mouseGlow = 0.04 / (mouseDist + 0.5);
+            color += vec3(0.38, 0.22, 0.55) * mouseGlow;
+            
+            // Subtle vignette
+            float vignette = 1.0 - length(uv) * 0.4;
+            color *= vignette;
+
+            gl_FragColor = vec4(color, 1.0);
         }
     `;
 
@@ -58,6 +88,7 @@
     const uniforms = {
         time: { type: 'f', value: 1.0 },
         resolution: { type: 'v2', value: new THREE.Vector2() },
+        mouse: { type: 'v2', value: new THREE.Vector2(0.5, 0.5) },
     };
 
     const material = new THREE.ShaderMaterial({
@@ -70,11 +101,25 @@
     scene.add(mesh);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Cap at 2x for performance
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.domElement.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:0;';
 
-    // Insert the canvas as the first child so CSS layers overlay it
     container.insertBefore(renderer.domElement, container.firstChild);
+
+    // Smooth mouse tracking
+    let targetMX = 0.5, targetMY = 0.5;
+    let currentMX = 0.5, currentMY = 0.5;
+
+    container.closest('.scroll-hero__sticky').addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        targetMX = (e.clientX - rect.left) / rect.width;
+        targetMY = 1.0 - (e.clientY - rect.top) / rect.height; // flip Y for shader coords
+    });
+
+    container.closest('.scroll-hero__sticky').addEventListener('mouseleave', () => {
+        targetMX = 0.5;
+        targetMY = 0.5;
+    });
 
     // Handle resize
     function onResize() {
@@ -93,12 +138,19 @@
     function animate() {
         animId = requestAnimationFrame(animate);
         uniforms.time.value += 0.05;
+
+        // Smooth mouse interpolation
+        currentMX += (targetMX - currentMX) * 0.05;
+        currentMY += (targetMY - currentMY) * 0.05;
+        uniforms.mouse.value.x = currentMX;
+        uniforms.mouse.value.y = currentMY;
+
         renderer.render(scene, camera);
     }
 
     animate();
 
-    // Pause when not visible (performance)
+    // Pause when not visible
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {

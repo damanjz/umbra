@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return 1 - Math.pow(1 - t, 3);
     }
 
-    // --- Floating Particles + Reactive Orbs ---
+    // --- Floating Particles ---
     const stickyEl = document.querySelector('.scroll-hero__sticky');
     if (stickyEl) {
         const canvas = document.createElement('canvas');
@@ -194,32 +194,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let particles = [];
         const PARTICLE_COUNT = 50;
 
-        // --- ORBS: large glowing circles that react to cursor ---
-        const orbs = [];
-        const ORB_CONFIGS = [
-            { baseX: 0.15, baseY: 0.25, radius: 120, r: 180, g: 142, b: 255, alpha: 0.08 },
-            { baseX: 0.80, baseY: 0.70, radius: 100, r: 154, g: 111, b: 224, alpha: 0.07 },
-            { baseX: 0.50, baseY: 0.15, radius: 90, r: 212, g: 184, b: 255, alpha: 0.06 },
-            { baseX: 0.25, baseY: 0.75, radius: 80, r: 180, g: 142, b: 255, alpha: 0.05 },
-            { baseX: 0.70, baseY: 0.30, radius: 110, r: 140, g: 100, b: 240, alpha: 0.06 },
-            { baseX: 0.90, baseY: 0.50, radius: 70, r: 200, g: 170, b: 255, alpha: 0.05 },
-            { baseX: 0.40, baseY: 0.85, radius: 95, r: 160, g: 120, b: 255, alpha: 0.07 },
-            { baseX: 0.10, baseY: 0.55, radius: 85, r: 190, g: 155, b: 255, alpha: 0.06 },
-        ];
-
         function resizeCanvas() {
             canvas.width = stickyEl.offsetWidth;
             canvas.height = stickyEl.offsetHeight;
-            // Init orb positions on resize
-            ORB_CONFIGS.forEach((cfg, i) => {
-                if (!orbs[i]) {
-                    orbs[i] = {
-                        x: cfg.baseX * canvas.width,
-                        y: cfg.baseY * canvas.height,
-                        vx: 0, vy: 0,
-                    };
-                }
-            });
         }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
@@ -248,37 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const mx = window.__heroMouse ? window.__heroMouse.x * canvas.width : canvas.width / 2;
             const my = window.__heroMouse ? window.__heroMouse.y * canvas.height : canvas.height / 2;
-
-            // --- Draw orbs (behind particles) ---
-            ORB_CONFIGS.forEach((cfg, i) => {
-                const orb = orbs[i];
-                if (!orb) return;
-
-                // Target: blend between base position and cursor position
-                const attractStrength = 0.3; // how much they follow cursor
-                const targetX = cfg.baseX * canvas.width + (mx - cfg.baseX * canvas.width) * attractStrength;
-                const targetY = cfg.baseY * canvas.height + (my - cfg.baseY * canvas.height) * attractStrength;
-
-                // Elastic spring physics
-                const springK = 0.015;
-                const damping = 0.92;
-                orb.vx += (targetX - orb.x) * springK;
-                orb.vy += (targetY - orb.y) * springK;
-                orb.vx *= damping;
-                orb.vy *= damping;
-                orb.x += orb.vx;
-                orb.y += orb.vy;
-
-                // Draw glowing orb
-                const grad = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, cfg.radius);
-                grad.addColorStop(0, `rgba(${cfg.r}, ${cfg.g}, ${cfg.b}, ${cfg.alpha})`);
-                grad.addColorStop(0.5, `rgba(${cfg.r}, ${cfg.g}, ${cfg.b}, ${cfg.alpha * 0.4})`);
-                grad.addColorStop(1, `rgba(${cfg.r}, ${cfg.g}, ${cfg.b}, 0)`);
-                ctx.beginPath();
-                ctx.arc(orb.x, orb.y, cfg.radius, 0, Math.PI * 2);
-                ctx.fillStyle = grad;
-                ctx.fill();
-            });
 
             // --- Draw particles ---
             particles.forEach((p, i) => {
