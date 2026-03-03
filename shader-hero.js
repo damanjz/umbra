@@ -1,8 +1,6 @@
 /* =======================================================
    UMBRA — Shader Hero Animation
    Brand-aligned WebGL shader with mouse reactivity
-   Layer 1: Animated mesh gradient background
-   Layer 2: Concentric rings with chromatic separation
    ======================================================= */
 
 (function () {
@@ -21,126 +19,59 @@
         }
     `;
 
-    // Combined fragment shader — mesh gradient bg + brand-colored rings
+    // Fragment shader — Umbra brand colors (deep purple, violet, dark) with mouse reactivity
     const fragmentShader = `
         precision highp float;
         uniform vec2 resolution;
         uniform float time;
         uniform vec2 mouse;
 
-        // Simplex-style noise for mesh gradient
-        float hash(vec2 p) {
-            return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
-        }
-
-        float noise(vec2 p) {
-            vec2 i = floor(p);
-            vec2 f = fract(p);
-            f = f * f * (3.0 - 2.0 * f);
-            float a = hash(i);
-            float b = hash(i + vec2(1.0, 0.0));
-            float c = hash(i + vec2(0.0, 1.0));
-            float d = hash(i + vec2(1.0, 1.0));
-            return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
-        }
-
-        float fbm(vec2 p) {
-            float value = 0.0;
-            float amplitude = 0.5;
-            for (int i = 0; i < 5; i++) {
-                value += amplitude * noise(p);
-                p *= 2.0;
-                amplitude *= 0.5;
-            }
-            return value;
-        }
-
         void main(void) {
-            vec2 uv = gl_FragCoord.xy / resolution.xy;
-            vec2 centered = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
-
-            // Mouse influence
+            vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
+            
+            // Mouse influence — shift the center toward cursor
             vec2 center = (mouse * 2.0 - 1.0) * 0.3;
-            vec2 p = centered - center;
-
+            vec2 p = uv - center;
+            
             float t = time * 0.05;
-
-            // ========== LAYER 1: Mesh Gradient Background ==========
-            vec2 gradUV = uv;
-            // Warp UV with mouse
-            gradUV += (mouse - 0.5) * 0.1;
-
-            float slowTime = time * 0.02;
-
-            // Flowing noise layers
-            float n1 = fbm(gradUV * 3.0 + vec2(slowTime, slowTime * 0.7));
-            float n2 = fbm(gradUV * 2.0 - vec2(slowTime * 0.5, slowTime * 1.2));
-            float n3 = fbm(gradUV * 4.0 + vec2(slowTime * 0.8, -slowTime * 0.3));
-
-            // Umbra brand gradient colors
-            vec3 deepBlack = vec3(0.02, 0.02, 0.04);
-            vec3 darkPurple = vec3(0.08, 0.03, 0.15);
-            vec3 midPurple  = vec3(0.15, 0.06, 0.25);
-            vec3 violet     = vec3(0.25, 0.12, 0.40);
-
-            // Blend based on noise
-            vec3 gradient = mix(deepBlack, darkPurple, smoothstep(0.2, 0.6, n1));
-            gradient = mix(gradient, midPurple, smoothstep(0.4, 0.7, n2) * 0.7);
-            gradient = mix(gradient, violet, smoothstep(0.5, 0.8, n3) * 0.4);
-
-            // Subtle animated highlight streaks
-            float streak = sin(uv.x * 15.0 + time * 0.3) * cos(uv.y * 10.0 + time * 0.2);
-            streak = pow(abs(streak), 3.0) * 0.15;
-            gradient += vec3(0.20, 0.10, 0.35) * streak;
-
-            // Dot/grid pattern overlay (inspired by DotOrbit)
-            vec2 dotUV = uv * 30.0;
-            vec2 dotGrid = fract(dotUV) - 0.5;
-            float dotDist = length(dotGrid);
-            float dotPulse = sin(time * 0.5 + floor(dotUV.x) * 0.5 + floor(dotUV.y) * 0.7);
-            float dots = smoothstep(0.15, 0.1, dotDist) * (0.03 + 0.02 * dotPulse);
-            gradient += vec3(0.30, 0.15, 0.50) * dots;
-
-            // ========== LAYER 2: Concentric Rings ==========
             float lineWidth = 0.002;
-            vec3 rings = vec3(0.0);
 
+            // Umbra brand palette: deep purple, violet, dark indigo
+            // Channel 0 = R (muted), Channel 1 = G (very muted), Channel 2 = B (dominant purple)
+            vec3 color = vec3(0.0);
+            
             for (int i = 0; i < 5; i++) {
                 float fi = float(i);
-
+                
                 // Purple/violet channel (dominant)
-                rings.b += lineWidth * fi * fi / abs(
+                color.b += lineWidth * fi * fi / abs(
                     fract(t + fi * 0.01) * 5.0
                     - length(p)
                     + mod(p.x + p.y, 0.2)
                 );
-
-                // Red channel (muted violet tint)
-                rings.r += lineWidth * fi * fi * 0.6 / abs(
+                
+                // Red channel (muted, creates violet tint)
+                color.r += lineWidth * fi * fi * 0.6 / abs(
                     fract(t - 0.008 + fi * 0.01) * 5.0
                     - length(p)
                     + mod(p.x + p.y, 0.2)
                 );
-
-                // Green channel (very subtle)
-                rings.g += lineWidth * fi * fi * 0.25 / abs(
+                
+                // Green channel (very subtle, deepens the purple)
+                color.g += lineWidth * fi * fi * 0.25 / abs(
                     fract(t - 0.015 + fi * 0.01) * 5.0
                     - length(p)
                     + mod(p.x + p.y, 0.2)
                 );
             }
 
-            // Mouse glow
+            // Add a subtle radial glow from the mouse position
             float mouseDist = length(p);
             float mouseGlow = 0.04 / (mouseDist + 0.5);
-            rings += vec3(0.38, 0.22, 0.55) * mouseGlow;
-
-            // ========== COMPOSITE ==========
-            // Add rings on top of gradient
-            vec3 color = gradient + rings;
-
-            // Vignette
-            float vignette = 1.0 - length(centered) * 0.35;
+            color += vec3(0.38, 0.22, 0.55) * mouseGlow;
+            
+            // Subtle vignette
+            float vignette = 1.0 - length(uv) * 0.4;
             color *= vignette;
 
             gl_FragColor = vec4(color, 1.0);
@@ -179,19 +110,16 @@
     let targetMX = 0.5, targetMY = 0.5;
     let currentMX = 0.5, currentMY = 0.5;
 
-    const stickyEl = container.closest('.scroll-hero__sticky');
-    if (stickyEl) {
-        stickyEl.addEventListener('mousemove', (e) => {
-            const rect = container.getBoundingClientRect();
-            targetMX = (e.clientX - rect.left) / rect.width;
-            targetMY = 1.0 - (e.clientY - rect.top) / rect.height;
-        });
+    container.closest('.scroll-hero__sticky').addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        targetMX = (e.clientX - rect.left) / rect.width;
+        targetMY = 1.0 - (e.clientY - rect.top) / rect.height; // flip Y for shader coords
+    });
 
-        stickyEl.addEventListener('mouseleave', () => {
-            targetMX = 0.5;
-            targetMY = 0.5;
-        });
-    }
+    container.closest('.scroll-hero__sticky').addEventListener('mouseleave', () => {
+        targetMX = 0.5;
+        targetMY = 0.5;
+    });
 
     // Handle resize
     function onResize() {
