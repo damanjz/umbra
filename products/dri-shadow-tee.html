@@ -74,10 +74,10 @@
                     <!-- Image Gallery -->
                     <div class="pdp__gallery">
                         <div class="pdp__main-img">
-                            <img src="../images/tee_dri_shadow.png" alt="Umbra Shadow Runner X" id="mainImage">
+                            <img loading="lazy" src="../images/tee_dri_shadow.png" alt="Umbra Shadow Runner X" id="mainImage">
                             <div class="pdp__3d-wrap">
                                 <div class="pdp__3d-spin">
-                                    <img src="../images/tee_dri_shadow.png" alt="Umbra Shadow Runner X — 3D View">
+                                    <img loading="lazy" src="../images/tee_dri_shadow.png" alt="Umbra Shadow Runner X — 3D View">
                                 </div>
                                 <div class="pdp__3d-reflection"></div>
                             </div>
@@ -87,14 +87,11 @@
                         </div>
                         <div class="pdp__thumbs">
                             <button class="pdp__thumb pdp__thumb--active"
-                                onclick="changeImage(this, '../images/tee_dri_shadow.png')"><img
-                                    src="../images/tee_dri_shadow.png" alt="View 1"></button>
+                                onclick="changeImage(this, '../images/tee_dri_shadow.png')"><img loading="lazy" src="../images/tee_dri_shadow.png" alt="View 1"></button>
                             <button class="pdp__thumb"
-                                onclick="changeImage(this, '../images/tee_dri_shadow.png')"><img
-                                    src="../images/tee_dri_shadow.png" alt="View 2"></button>
+                                onclick="changeImage(this, '../images/tee_dri_shadow.png')"><img loading="lazy" src="../images/tee_dri_shadow.png" alt="View 2"></button>
                             <button class="pdp__thumb"
-                                onclick="changeImage(this, '../images/tee_dri_shadow.png')"><img
-                                    src="../images/tee_dri_shadow.png" alt="View 3"></button>
+                                onclick="changeImage(this, '../images/tee_dri_shadow.png')"><img loading="lazy" src="../images/tee_dri_shadow.png" alt="View 3"></button>
                         </div>
                     </div>
 
@@ -256,8 +253,8 @@
         addToCart(PRODUCT_DATA.name, PRODUCT_DATA.price, PRODUCT_DATA.image);
     }
     </script>
-    <script src="../product.js"></script>
-    <script src="../search.js?v=1"></script>
+    <script src="../product.js" defer></script>
+    <script src="../search.js?v=1" defer></script>
 </body>
 
 </html>

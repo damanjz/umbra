@@ -283,7 +283,7 @@
     </footer>
 
     <script src="cart.js?v=2"></script>
-    <script src="search.js?v=1"></script>
+    <script src="search.js?v=1" defer></script>
     <script src="scroll-hero.js?v=3"></script>
     <script>
         // Enhanced product data for filtering
@@ -371,7 +371,7 @@
             grid.innerHTML = products.map(p => `
             <article class="product-card">
                 <a href="products/${p.id}.html">
-                    <img src="${p.image}" alt="${p.name}" style="width:100%;aspect-ratio:1;object-fit:cover;background:var(--bg-surface)">
+                    <img loading="lazy" src="${p.image}" alt="${p.name}" style="width:100%;aspect-ratio:1;object-fit:cover;background:var(--bg-surface)">
                 </a>
                 <div class="product-card__body">
                     <span class="product-card__tag">${p.cat}</span>

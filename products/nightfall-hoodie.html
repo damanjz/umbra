@@ -70,11 +70,11 @@
             <div class="container">
                 <div class="pdp__grid">
                     <div class="pdp__gallery">
-                        <div class="pdp__main-img"><img src="../images/hoodie_dark.png" alt="Nightfall Hoodie — Onyx"
+                        <div class="pdp__main-img"><img loading="lazy" src="../images/hoodie_dark.png" alt="Nightfall Hoodie — Onyx"
                                 id="mainImage">
                             <div class="pdp__3d-wrap">
                                 <div class="pdp__3d-spin">
-                                    <img src="../images/hoodie_dark.png" alt="3D View">
+                                    <img loading="lazy" src="../images/hoodie_dark.png" alt="3D View">
                                 </div>
                                 <div class="pdp__3d-reflection"></div>
                             </div>
@@ -84,10 +84,8 @@
                         </div>
                         <div class="pdp__thumbs">
                             <button class="pdp__thumb pdp__thumb--active"
-                                onclick="changeImage(this, '../images/hoodie_dark.png')"><img
-                                    src="../images/hoodie_dark.png" alt="Front"></button>
-                            <button class="pdp__thumb" onclick="changeImage(this, '../images/hoodie_dark.png')"><img
-                                    src="../images/hoodie_dark.png" alt="Back"></button>
+                                onclick="changeImage(this, '../images/hoodie_dark.png')"><img loading="lazy" src="../images/hoodie_dark.png" alt="Front"></button>
+                            <button class="pdp__thumb" onclick="changeImage(this, '../images/hoodie_dark.png')"><img loading="lazy" src="../images/hoodie_dark.png" alt="Back"></button>
                         </div>
                     </div>
 
@@ -265,8 +263,8 @@
         <div class="footer__bottom">&copy; 2026 Umbra Inc. All rights reserved.</div>
     </footer>
     <script src="../cart.js"></script>
-    <script src="../product.js"></script>
-    <script src="../search.js?v=1"></script>
+    <script src="../product.js" defer></script>
+    <script src="../search.js?v=1" defer></script>
 </body>
 
 </html>

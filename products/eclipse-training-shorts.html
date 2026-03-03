@@ -71,11 +71,11 @@
                 <div class="pdp__grid">
                     <div class="pdp__gallery">
                         <div class="pdp__main-img">
-                            <img src="../images/training_shorts.png"
+                            <img loading="lazy" src="../images/training_shorts.png"
                                 alt="Eclipse Training Shorts" id="mainImage">
                             <div class="pdp__3d-wrap">
                                 <div class="pdp__3d-spin">
-                                    <img src="../images/training_shorts.png" alt="Eclipse Training Shorts — 3D View">
+                                    <img loading="lazy" src="../images/training_shorts.png" alt="Eclipse Training Shorts — 3D View">
                                 </div>
                                 <div class="pdp__3d-reflection"></div>
                             </div>
@@ -85,10 +85,8 @@
                         </div>
                         <div class="pdp__thumbs">
                             <button class="pdp__thumb pdp__thumb--active"
-                                onclick="changeImage(this, '../images/training_shorts.png')"><img
-                                    src="../images/training_shorts.png" alt="Front"></button>
-                            <button class="pdp__thumb" onclick="changeImage(this, '../images/training_shorts.png')"><img
-                                    src="../images/training_shorts.png" alt="Detail"></button>
+                                onclick="changeImage(this, '../images/training_shorts.png')"><img loading="lazy" src="../images/training_shorts.png" alt="Front"></button>
+                            <button class="pdp__thumb" onclick="changeImage(this, '../images/training_shorts.png')"><img loading="lazy" src="../images/training_shorts.png" alt="Detail"></button>
                         </div>
                     </div>
 
@@ -257,8 +255,8 @@
         <div class="footer__bottom">&copy; 2026 Umbra Inc. All rights reserved.</div>
     </footer>
     <script src="../cart.js"></script>
-    <script src="../product.js"></script>
-    <script src="../search.js?v=1"></script>
+    <script src="../product.js" defer></script>
+    <script src="../search.js?v=1" defer></script>
 </body>
 
 </html>

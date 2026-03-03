@@ -17,13 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Wordmark & layers start CSS-hidden, then we animate them in
         requestAnimationFrame(() => {
             // Kick off the entrance: wordmark fades in from huge → 3x over 1.2s
-            wordmark.style.transition = 'opacity 1.2s ease-out, transform 1.2s ease-out';
+            wordmark.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
             wordmark.style.opacity = '0.35';
             wordmark.style.transform = 'scale(3)';
 
             // Layers get a soft ambient glow immediately
             layers.forEach((layer, i) => {
-                layer.style.transition = `opacity ${1 + i * 0.3}s ease-out`;
+                layer.style.transition = `opacity ${0.4 + i * 0.15}s ease-out`;
                 layer.style.opacity = 0.15 + i * 0.1;
             });
 
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 wordmark.style.transition = 'none';
                 layers.forEach(l => l.style.transition = 'none');
-            }, 1500);
+            }, 800);
         });
 
         // --- Scroll-driven animation ---
